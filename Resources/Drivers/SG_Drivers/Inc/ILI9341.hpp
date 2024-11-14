@@ -120,19 +120,22 @@ private:
   static constexpr uint16_t LCD_DATA0_Pos_  = 0;
   GPIO_TypeDef* LCD_DATA0_GPIO_Port_        = GPIOC;
   // Read / Write
-  uint16_t LCD_READ_Pin_              = GPIO_PIN_1;
-  GPIO_TypeDef* LCD_READ_GPIO_Port_   = GPIOA;
-  uint16_t LCD_WRITE_Pin_             = GPIO_PIN_2;
-  GPIO_TypeDef* LCD_WRITE_GPIO_Port_  = GPIOA;
+  uint16_t LCD_READ_Pin_                    = GPIO_PIN_1;
+  GPIO_TypeDef* LCD_READ_GPIO_Port_         = GPIOA;
+  uint16_t LCD_WRITE_Pin_                   = GPIO_PIN_2;
+  GPIO_TypeDef* LCD_WRITE_GPIO_Port_        = GPIOA;
   // Command / Data
-  uint16_t LCD_CD_Pin_                = GPIO_PIN_3;
-  GPIO_TypeDef* LCD_CD_GPIO_Port_     = GPIOA;
+  uint16_t LCD_CD_Pin_                      = GPIO_PIN_3;
+  GPIO_TypeDef* LCD_CD_GPIO_Port_           = GPIOA;
   // Chip Select
-  uint16_t LCD_CS_Pin_                = GPIO_PIN_4;
-  GPIO_TypeDef* LCD_CS_GPIO_Port_     = GPIOC;
+  uint16_t LCD_CS_Pin_                      = GPIO_PIN_4;
+  GPIO_TypeDef* LCD_CS_GPIO_Port_           = GPIOC;
   // Reset
-  uint16_t LCD_RST_Pin_               = GPIO_PIN_0;
-  GPIO_TypeDef* LCD_RST_GPIO_Port_    = GPIOA;
+  uint16_t LCD_RST_Pin_                     = GPIO_PIN_0;
+  GPIO_TypeDef* LCD_RST_GPIO_Port_          = GPIOA;
+  // Backlight PWM
+  uint16_t LCD_BACKLIGHT_PWM_Pin_           = GPIO_PIN_5;
+  GPIO_TypeDef* LCD_BACKLIGHT_PWM_Port_     = GPIOC;
 };
 
 #endif /* SOLARGATORSBSP_DRIVERS_INC_ILI9341_HPP_ */

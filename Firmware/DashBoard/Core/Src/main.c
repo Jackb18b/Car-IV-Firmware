@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "TCAL9538RSVR.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -47,6 +48,10 @@ CAN_HandleTypeDef hcan1;
 CAN_HandleTypeDef hcan2;
 
 I2C_HandleTypeDef hi2c2;
+
+TCAL9538RSVR tcal0;
+TCAL9538RSVR tcal1;
+TCAL9538RSVR tcal2; // output
 
 TIM_HandleTypeDef htim3;
 
@@ -109,7 +114,14 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  TCAL9538RSVR_INIT(&tcal0, &hi2c2, 0);
+  TCAL9538RSVR_INIT(&tcal1, &hi2c2, 1);
+  TCAL9538RSVR_INIT(&tcal2, &hi2c2, 2);
 
+  TCAL9538RSVR_SetDirection(&tcal2, 0);
+
+  TCAL9538RSVR_SetInterrupts(&tcal0, 0xF0);
+  TCAL9538RSVR_SetInterrupts(&tcal1, 0x1F);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -516,7 +528,52 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   switch (GPIO_Pin)
   {
   case GPIO_PIN_2:
-    /* handling for 2 input GPIO expanders */
+    uint8_t triggeredPin=0;
+    uint8_t chipPin=0;
+    TCAL9538RSVR_HandleInterrupt(&tcal0, triggeredPin);
+    if (triggeredPin == 255)
+    {
+      TCAL9538RSVR_HandleInterrupt(&tcal1, triggeredPin);
+      chipPin = 10 + triggeredPin;
+    }
+
+    switch (chipPin)
+    {
+    case 4:
+      /* extra 1 */
+      break;
+    case 5:
+      /* MC */
+      break;
+    case 6:
+      /* Array */
+      break;
+    case 7:
+      /* BMS */
+      break;
+    case 10:
+      /* Mode */
+      break;
+    case 11:
+      /* C+ */
+      break;
+    case 12:
+      /* C- */
+      break;
+    case 13:
+      /* Extra 2 */
+      break;
+    case 14:
+      /* Main */
+      break;
+    case 15:
+      /* Break */
+      break;
+
+    default:
+      break;
+    }
+    
     break;
   
   default:

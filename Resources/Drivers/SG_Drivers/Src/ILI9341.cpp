@@ -55,7 +55,7 @@ ILI9341::~ILI9341()
 void ILI9341::Init()
 {
   // Write all control signals high
-  HAL_GPIO_WritePin(Backlight_PWM_GPIO_Port, Backlight_PWM_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LCD_BACKLIGHT_PWM_Port_, LCD_BACKLIGHT_PWM_Pin_, GPIO_PIN_SET);
 
   HAL_GPIO_WritePin(LCD_CS_GPIO_Port_, LCD_CS_Pin_, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LCD_CD_GPIO_Port_, LCD_CD_Pin_, GPIO_PIN_SET);

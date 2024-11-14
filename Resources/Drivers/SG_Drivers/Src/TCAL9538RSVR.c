@@ -7,6 +7,31 @@
 #define TCAL9538RSVR_INT_CONFIG 0x45
 #define TCAL9538RSVR_INT_STATUS 0x46
 
+
+/**
+ * redo in c++
+ * make virtual i2c base class -> empty functions
+ * inheritor being st func
+ * specific drivers owning i2c object*
+ */
+
+
+
+/*class i2c {
+    virtual uint8_t read(...) {};
+    virtual uint8_t write(...) {};
+;}
+
+class st_i2c : public i2c {
+    ...
+}
+
+class TCL... {
+private:
+    i2c* dev;
+}
+*/
+
 uint8_t bitmask_to_pin(uint8_t bitmask) {
     uint8_t pin_number = 0;
     if (bitmask == 0) 
@@ -78,6 +103,15 @@ HAL_StatusTypeDef TCAL9538RSVR_HandleInterrupt(TCAL9538RSVR* dev, uint8_t *pin)
 
     return (errNum);
 }
+
+// HAL_StatusTypeDef TCAL9538RSVR_CheckBothInterrupts(TCAL9538RSVR* dev1, TCAL9538RSVR* dev2, uint8_t portPin)
+// {
+//     int8_t pin = 0;
+//     TCAL9538RSVR_HandleInterrupt(dev1, pin);
+//     if (pin == -1)
+//     TCAL9538RSVR_HandleInterrupt(dev2, pin);
+    
+// }
 
 
 HAL_StatusTypeDef TCAL9538RSVR_ReadInput(TCAL9538RSVR* dev, uint8_t *data)
