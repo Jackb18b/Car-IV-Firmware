@@ -71,7 +71,7 @@ HAL_StatusTypeDef TCAL9538RSVR_SetDirection(TCAL9538RSVR* dev, uint8_t bitMask)
 
 /**
  * @brief Sets interrupt register
- * @param uint8_t : bitMask -> '0' is input enabled
+ * @param uint8_t : bitMask -> '0' will enable interrupts for that pin
  * @retval HAL_StatusTypeDef : HAL_Status
  */
 HAL_StatusTypeDef TCAL9538RSVR_SetInterrupts(TCAL9538RSVR* dev, uint8_t bitMask)

@@ -530,6 +530,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
   // from button.hpp, since we are redefining this callback function
   // we want to include the original functionality as well for the buttons
+  // these are for buttons left turn, right turn, and hazards that are defined in user.cpp
   Button_HandleInterrupt(GPIO_Pin);
 
   switch (GPIO_Pin)
@@ -540,8 +541,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
     TCAL9538RSVR_HandleInterrupt(&tcal0, &triggeredPin);
     if (triggeredPin == 255)
     {
-      TCAL9538RSVR_HandleInterrupt(&tcal1, &triggeredPin);
-      chipPin = 10 + triggeredPin;
+      TCAL9538RSVR_HandleInterrupt(&tcal1, &triggeredPin); // must be from this device if not from the other, last device is only outputs 
+      chipPin = 10 + triggeredPin;                         
+    }
+    else 
+    {
+      chipPin = triggeredPin;
     }
 
     switch (chipPin)
