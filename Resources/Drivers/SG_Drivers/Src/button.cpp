@@ -238,8 +238,8 @@ void Button::ClearInterrupt() {
     __HAL_GPIO_EXTI_CLEAR_FLAG(pin_);
 }
 
-// Global interrupt callback
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+// Helper function to handle button interrupts
+extern "C" void Button_HandleInterrupt(uint16_t GPIO_Pin) {
     for (auto button : Button::button_list_) {
         // Check that pin is the same and button is pressed
         if (button->GetPin() == GPIO_Pin && button->ReadPin() == !button->GetDefaultState()) {
@@ -247,4 +247,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
             osSemaphoreRelease(Button::button_semaphore_id_);
         }
     }
+}
+
+// Global interrupt callback
+__attribute__((weak)) void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+    Button_HandleInterrupt(GPIO_Pin);
 }

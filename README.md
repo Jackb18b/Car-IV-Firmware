@@ -34,8 +34,9 @@
 4. Set the default CMake generator to Ninja by creating an environment variable called `CMAKE_GENERATOR` and setting its value to `Ninja`
 #### Build and Run Example Project
 1. Run `git clone https://github.com/Solar-Gators/Car-IV-Firmware.git --recursive`
-2. Navigate to `Firmware/nucleol476rg-base/` and run `cmake -S . -B build` to generate the build system. To build the executable, run either `cmake --build build` or `ninja` from the `build` directory. Verify that the build completes without errors and a .hex file appears in the `build` directory.
-3. Open J-Flash Lite, erase the board, then program the .hex file onto the board. Press the black reset button and confirm that the green LED is blinking.
+2. Navigate to the new project's root, i.e. `cd Car-IV-Firmware`, and run `git submodule init` followed by `git submodule update` to download the embedded template library (etl)
+3. Navigate to `Firmware/nucleol476rg-base/` and run `cmake -S . -B build` to generate the build system. To build the executable, run either `cmake --build build` or `ninja` from the `build` directory. Verify that the build completes without errors and a .hex file appears in the `build` directory.
+4. Open J-Flash Lite, erase the board, then program the .hex file onto the board. Press the black reset button and confirm that the green LED is blinking.
 
 ## Optional
 #### Use MSYS2 as Integrated Terminal in VSCode

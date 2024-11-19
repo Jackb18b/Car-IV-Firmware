@@ -21,6 +21,8 @@
 #include "cmsis_os.h"
 #include "TCAL9538RSVR.h"
 
+extern void Button_HandleInterrupt(uint16_t GPIO_Pin);
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 // #include "usbd_cdc_if.h"
@@ -525,15 +527,20 @@ static void MX_GPIO_Init(void)
 
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+
+  // from button.hpp, since we are redefining this callback function
+  // we want to include the original functionality as well for the buttons
+  Button_HandleInterrupt(GPIO_Pin);
+
   switch (GPIO_Pin)
   {
   case GPIO_PIN_2:
     uint8_t triggeredPin=0;
     uint8_t chipPin=0;
-    TCAL9538RSVR_HandleInterrupt(&tcal0, triggeredPin);
+    TCAL9538RSVR_HandleInterrupt(&tcal0, &triggeredPin);
     if (triggeredPin == 255)
     {
-      TCAL9538RSVR_HandleInterrupt(&tcal1, triggeredPin);
+      TCAL9538RSVR_HandleInterrupt(&tcal1, &triggeredPin);
       chipPin = 10 + triggeredPin;
     }
 
@@ -580,6 +587,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
     break;
   }
 }
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
